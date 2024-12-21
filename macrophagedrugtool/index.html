@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drug Simulation</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        .metrics-card {
+            border-radius: 10px;
+            padding: 20px;
+            color: white;
+            text-align: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .metrics-card h5 {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .metrics-card p {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .bg-primary-custom {
+            background-color: #007bff;
+        }
+
+        .bg-success-custom {
+            background-color: #28a745;
+        }
+
+        .bg-warning-custom {
+            background-color: #ffc107;
+        }
+    </style>
+</head>
+<body class="bg-light">
+    <div class="container py-5">
+        <div class="text-center mb-5">
+            <h1 class="fw-bold">Macrophage Drug Simulation</h1>
+            <p class="text-muted">Simulate the effects of drugs on macrophage cells and visualize the results.</p>
+        </div>
+        <!-- Form Section -->
+        <div class="card shadow mb-5">
+            <div class="card-body">
+                <form id="simulationForm">
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="name" class="form-label"><strong>Drug Name</strong></label>
+                            <input type="text" id="name" name="name" class="form-control" placeholder="Enter drug name" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="potency" class="form-label"><strong>Potency</strong></label>
+                            <input type="number" step="0.1" id="potency" name="potency" class="form-control" placeholder="e.g., 0.8" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="specificity" class="form-label"><strong>Specificity</strong></label>
+                            <input type="number" step="0.1" id="specificity" name="specificity" class="form-control" placeholder="e.g., 0.9" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="toxicity" class="form-label"><strong>Toxicity</strong></label>
+                            <input type="number" step="0.1" id="toxicity" name="toxicity" class="form-control" placeholder="e.g., 0.2" required>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <label for="half_life" class="form-label"><strong>Half-Life (hours)</strong></label>
+                            <input type="number" step="0.1" id="half_life" name="half_life" class="form-control" placeholder="e.g., 1.5" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="num_cells" class="form-label"><strong>Number of Cells</strong></label>
+                            <input type="number" id="num_cells" name="num_cells" class="form-control" placeholder="e.g., 1000" required>
+                        </div>
+                    </div>
+                    <div class="text-center">
+                        <button type="submit" class="btn btn-primary btn-lg">Run Simulation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Drug Effective Metrics Section -->
+        <div class="row mb-5 d-none" id="metricsCard">
+            <div class="col-lg-4">
+                <div class="metrics-card bg-primary-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">AUC</h5>
+                        <p class="fs-4" id="aucValue"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="metrics-card bg-success-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">Final Viability</h5>
+                        <p class="fs-4" id="finalViability"></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="metrics-card bg-warning-custom">
+                    <div class="card-body">
+                        <h5 class="card-title">Final Resistance Level</h5>
+                        <p class="fs-4" id="finalResistance"></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts Section -->
+        <div class="row">
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Viability vs Drug Concentration</h5>
+                        <canvas id="viabilityChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">Resistance Development</h5>
+                        <canvas id="resistanceChart"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script>
+        const form = document.getElementById('simulationForm');
+        const metricsCard = document.getElementById('metricsCard');
+        const aucValue = document.getElementById('aucValue');
+        const finalViability = document.getElementById('finalViability');
+        const finalResistance = document.getElementById('finalResistance');
+    
+        // Handling form submission and API request
+        form.addEventListener('submit', async (event) => {
+            event.preventDefault();  // Prevent the default form submission
+    
+            const formData = new FormData(form);
+            const formDataObj = Object.fromEntries(formData.entries());  // Convert form data to an object
+            
+            // Send the form data to the Flask server via POST request
+            const response = await fetch('/simulate', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formDataObj)
+            });
+    
+            const data = await response.json();  // Parse the JSON response
+    
+            // Display the results in the metrics cards
+            metricsCard.classList.remove('d-none');  // Make the metrics card section visible
+            aucValue.textContent = data.auc.toFixed(2);
+            finalViability.textContent = (data.final_viability * 100).toFixed(2) + '%';
+            finalResistance.textContent = data.final_resistance.toFixed(2);
+    
+            // Update the charts with the results
+            updateCharts(data);
+        });
+    
+        // Function to update charts with the new data
+        function updateCharts(data) {
+            const viabilityCtx = document.getElementById('viabilityChart').getContext('2d');
+            const resistanceCtx = document.getElementById('resistanceChart').getContext('2d');
+    
+            // Viability Chart
+            new Chart(viabilityCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: 48 }, (_, i) => i + 1),
+                    datasets: [
+                        {
+                            label: 'Viability',
+                            data: data.viability,
+                            borderColor: 'rgba(0, 123, 255, 1)',
+                            backgroundColor: 'rgba(0, 123, 255, 0.2)',
+                            fill: true
+                        },
+                        {
+                            label: 'Drug Concentration',
+                            data: data.drug_concentration,  // Assuming 'drug_concentration' is part of the response
+                            borderColor: 'rgba(255, 0, 0, 1)',  // Red color
+                            backgroundColor: 'rgba(255, 0, 0, 0.2)',  // Light red background
+                            fill: true
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            max: 1
+                        }
+                    }
+                }
+            });
+    
+            // Resistance Chart
+            new Chart(resistanceCtx, {
+                type: 'line',
+                data: {
+                    labels: Array.from({ length: 48 }, (_, i) => i + 1),
+                    datasets: [{
+                        label: 'Resistance',
+                        data: data.resistance,
+                        borderColor: 'rgba(255, 193, 7, 1)',
+                        backgroundColor: 'rgba(255, 193, 7, 0.2)',
+                        fill: true
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        }
+    </script>    
+</body>
+</html>
