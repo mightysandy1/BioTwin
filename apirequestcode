@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FDA Drug Reaction Data</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+    .container {
+      max-width: 800px;
+      margin: 50px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+    }
+    h1 {
+      text-align: center;
+      color: #333;
+    }
+    .loading {
+      text-align: center;
+      color: #555;
+    }
+    .error {
+      color: red;
+      text-align: center;
+    }
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+    li {
+      background: #f9f9f9;
+      margin: 10px 0;
+      padding: 15px;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+    }
+    select {
+      display: block;
+      margin: 20px auto;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>FDA Drug Reaction Data</h1>
+    <select id="pharm-class-select">
+      <option value="">Select a Pharm Class</option>
+    </select>
+    <div id="loading" class="loading">Loading data...</div>
+    <div id="error" class="error" style="display: none;">An error occurred while fetching data.</div>
+    <ul id="reaction-list" style="display: none;"></ul>
+  </div>
+
+  <script>
+    const pharmClassApiUrl = 'https://api.fda.gov/drug/event.json?search=receivedate:[20040101+TO+20241221]&count=patient.drug.openfda.pharm_class_epc.exact';
+
+    async function loadPharmClasses() {
+      const selectElement = document.getElementById('pharm-class-select');
+      try {
+        const response = await fetch(pharmClassApiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+        const pharmClasses = data.results;
+
+        pharmClasses.forEach(pharmClass => {
+          const option = document.createElement('option');
+          option.value = pharmClass.term;
+          option.textContent = pharmClass.term;
+          selectElement.appendChild(option);
+        });
+      } catch (error) {
+        console.error('Error loading pharm classes:', error);
+      }
+    }
+
+    async function fetchReactions(pharmClass) {
+      const loadingElement = document.getElementById('loading');
+      const errorElement = document.getElementById('error');
+      const reactionListElement = document.getElementById('reaction-list');
+
+      loadingElement.style.display = 'block';
+      reactionListElement.style.display = 'none';
+      reactionListElement.innerHTML = '';
+
+      const apiUrl = `https://api.fda.gov/drug/event.json?search=(receivedate:[20040101+TO+20241221])+AND+patient.drug.openfda.pharm_class_epc:"${encodeURIComponent(pharmClass)}"&count=patient.reaction.reactionmeddrapt.exact`;
+
+      try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const data = await response.json();
+
+        loadingElement.style.display = 'none';
+        reactionListElement.style.display = 'block';
+
+        const reactions = data.results;
+
+        if (reactions && reactions.length > 0) {
+          reactions.forEach(reaction => {
+            const listItem = document.createElement('li');
+            listItem.textContent = `${reaction.term}: ${reaction.count} occurrences`;
+            reactionListElement.appendChild(listItem);
+          });
+        } else {
+          const listItem = document.createElement('li');
+          listItem.textContent = 'No data available';
+          reactionListElement.appendChild(listItem);
+        }
+      } catch (error) {
+        loadingElement.style.display = 'none';
+        errorElement.style.display = 'block';
+        console.error('Error fetching reactions:', error);
+      }
+    }
+
+    document.getElementById('pharm-class-select').addEventListener('change', (event) => {
+      const selectedPharmClass = event.target.value;
+      if (selectedPharmClass) {
+        fetchReactions(selectedPharmClass);
+      }
+    });
+
+    loadPharmClasses();
+  </script>
+</body>
+</html>
