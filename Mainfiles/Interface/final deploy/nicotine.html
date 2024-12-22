@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Nicotine-BioTwin</title>
+    <meta name="twitter:description" content="Health Analysis and Drug Simulation Platform For Research And Development.">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="BioTwin">
+    <meta name="description" content="Cell  Health Analysis and Drug Simulation">
+    <meta property="og:image" content="assets/img/biotwinlogo.jpg">
+    <script>
+        (function() {
+
+            // JavaScript snippet handling Dark/Light mode switching
+
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const setStoredTheme = theme => localStorage.setItem('theme', theme);
+            const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
+
+            const getPreferredTheme = () => {
+
+                if (forcedTheme) return forcedTheme;
+
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                    return storedTheme;
+                }
+
+                const pageTheme = document.documentElement.getAttribute('data-bs-theme');
+
+                if (pageTheme) {
+                    return pageTheme;
+                }
+
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            const setTheme = theme => {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme);
+                }
+            }
+
+            setTheme(getPreferredTheme());
+
+            const showActiveTheme = (theme, focus = false) => {
+                const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));
+
+                if (!themeSwitchers.length) return;
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active');
+                    element.setAttribute('aria-pressed', 'false');
+                });
+
+                for (const themeSwitcher of themeSwitchers) {
+
+                    const btnToActivate = themeSwitcher.querySelector('[data-bs-theme-value="' + theme + '"]');
+
+                    if (btnToActivate) {
+                        btnToActivate.classList.add('active');
+                        btnToActivate.setAttribute('aria-pressed', 'true');
+                    }
+                }
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme !== 'light' && storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme());
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                showActiveTheme(getPreferredTheme());
+
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const theme = toggle.getAttribute('data-bs-theme-value');
+                            setStoredTheme(theme);
+                            setTheme(theme);
+                            showActiveTheme(theme);
+                        })
+                    })
+            });
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+P+One&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
+    <link rel="stylesheet" href="assets/css/Features-Minimal-icons.css">
+    <link rel="stylesheet" href="assets/css/Projects-Grid-Horizontal-images.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span style="font-size: 28px;">BioTwin</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1" style="font-size: 18px;">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link" href="/index.html" style="font-size: 18px;">Home</a></li>
+                    <li class="nav-item" style="font-size: 18px;"><a class="nav-link" href="index.html/#a3" style="font-size: 18px;"><strong>Tools</strong></a></li>
+                </ul>
+            </div>
+            <div class="theme-switcher dropstart"><a aria-expanded="false" data-bs-toggle="dropdown" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightbulb mb-1" style="font-size: 26px;">
+                        <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"></path>
+                    </svg></a>
+                <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="light"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-sun-fill opacity-50 me-2">
+                            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+                        </svg>Light</a><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="dark"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-moon-stars-fill opacity-50 me-2">
+                            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278"></path>
+                            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+                        </svg>Dark</a><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-circle-half opacity-50 me-2">
+                            <path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"></path>
+                        </svg>Auto</a></div>
+            </div>
+        </div>
+    </nav>
+    <section class="text-white py-4 py-xl-5" style="background: url(&quot;assets/img/nicotine-drug-molecule.webp&quot;);height: 448px;">
+        <div class="container">
+            <div class="border rounded border-0 d-flex flex-column justify-content-center align-items-center p-4 py-5" style="height: 466px;">
+                <div class="row">
+                    <div class="col-md-10 col-xl-8 col-xxl-9 text-center d-flex d-sm-flex d-md-flex justify-content-center align-items-center mx-auto justify-content-md-start align-items-md-center justify-content-xl-center">
+                        <div>
+                            <h1 class="text-uppercase fw-bold mb-3" style="color: var(--bs-primary);">Explore the effect of nicotine and medicine on cell health through our interactive&nbsp;dashboard.</h1><a class="btn btn-primary fs-5 me-2 py-2 px-4" role="button" href="https://nicotine.onrender.com/">Explore Tool</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section><div>
+    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2024/12/21/05/20241221050924-D6USEUKF.js"></script>
+<div>
+    <div class="container py-4 py-xl-5" style="height: auto;padding: 23px;">
+        <div class="row mb-5" style="height: 204.391px;">
+            <div class="col-md-8 col-xl-6 text-center mx-auto">
+                <h2>Simulating Nicotine's Impact on Lung Cells</h2>
+                <p class="w-lg-50">The project models how increasing levels of nicotine exposure.</p>
+            </div>
+        </div>
+        <p style="font-size: 22px;margin-left: 11px;margin-right: 13px;padding-top: 0px;padding-left: 2px;font-style: italic;">The project models how increasing levels of nicotine exposure influence cellular parameters such as inflammation (cytokine levels), oxidative stress, apoptosis, and metabolic activity. This simulation provides a detailed picture of the progressive changes in cellular health with rising nicotine concentrations</p>
+        <p style="font-size: 20px;padding-left: 7px;padding-right: 6px;margin-left: 8px;margin-right: 8px;"><strong>You can adjust nicotine exposure levels and observe its effects on key cell health markers, including:</strong><br><strong>Cytokine Levels</strong>: Indicators of inflammation.<br><strong>Viability:</strong> The percentage of living, functional cells.<br><strong>Oxidative Stress</strong>: Levels of reactive oxygen species (ROS) causing damage to cells.<br><strong>Metabolic Rate:</strong> Cellular energy production efficiency.<br><strong>Apoptosis Markers</strong>: Levels of programmed cell death.</p>
+    </div>
+    <section style="height: 470px;">
+        <h3 class="text-center">3D REPRESENTATION OF PROCESS&nbsp;</h3><div>
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+    <style>
+        .model-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 20px;
+            margin: 0;
+            flex-wrap: nowrap;
+        }
+
+        .model-wrapper {
+            text-align: center;
+        }
+
+        model-viewer {
+            width: 300px;
+            height: 300px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            background-color: white;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-title {
+            margin-top: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+        }
+    </style>
+
+    <div class="model-container">
+        <div class="model-wrapper">
+            <model-viewer src="/assets/a1.glb" alt="Model 1" camera-controls></model-viewer>
+            <div class="model-title">Healthy Lung</div>
+        </div>
+        <div class="model-wrapper">
+            <model-viewer src="/assets/a2.glb" alt="Model 2" camera-controls></model-viewer>
+            <div class="model-title">Effected due to Nicotine</div>
+        </div>
+        <div class="model-wrapper">
+            <model-viewer src="/assets/a3.glb" alt="Model 3" camera-controls></model-viewer>
+            <div class="model-title">Inflamation</div>
+        </div>
+        <div class="model-wrapper">
+            <model-viewer src="/assets/a4.glb" alt="Model 4" camera-controls></model-viewer>
+            <div class="model-title">Recovering </div>
+        </div>
+    </div>
+</div>
+
+    </section>
+    <footer>
+        <div class="container py-4 py-lg-5" style="height: 323.995px;">
+            <div class="row row-cols-2 row-cols-md-4">
+                <div class="col-12 col-md-3">
+                    <div class="fw-bold d-flex align-items-center mb-2"><span>BioTwin</span></div><a href="https://api.whatsapp.com/send/?phone=%2B919148043088&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank">
+                        <p class="text-muted" style="font-size: 11px;">by Team AlgoPy<br>Protype built for whackiest Hackathon event.</p>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2024&nbsp;<strong><span style="color: rgb(18, 22, 67);">BioTwin</span></strong></p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/startup-modern.js"></script>
+</body>
+
+</html>

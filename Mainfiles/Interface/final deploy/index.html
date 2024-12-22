@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html data-bs-theme="light" lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <title>Home - BioTwin</title>
+    <meta name="twitter:description" content="Health Analysis and Drug Simulation Platform For Research And Development.">
+    <meta name="twitter:card" content="summary">
+    <meta property="og:type" content="website">
+    <meta name="twitter:title" content="BioTwin">
+    <meta name="description" content="Cell  Health Analysis and Drug Simulation">
+    <meta property="og:image" content="assets/img/biotwinlogo.jpg">
+    <script>
+        (function() {
+
+            // JavaScript snippet handling Dark/Light mode switching
+
+            const getStoredTheme = () => localStorage.getItem('theme');
+            const setStoredTheme = theme => localStorage.setItem('theme', theme);
+            const forcedTheme = document.documentElement.getAttribute('data-bss-forced-theme');
+
+            const getPreferredTheme = () => {
+
+                if (forcedTheme) return forcedTheme;
+
+                const storedTheme = getStoredTheme();
+                if (storedTheme) {
+                    return storedTheme;
+                }
+
+                const pageTheme = document.documentElement.getAttribute('data-bs-theme');
+
+                if (pageTheme) {
+                    return pageTheme;
+                }
+
+                return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+
+            const setTheme = theme => {
+                if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    document.documentElement.setAttribute('data-bs-theme', 'dark');
+                } else {
+                    document.documentElement.setAttribute('data-bs-theme', theme);
+                }
+            }
+
+            setTheme(getPreferredTheme());
+
+            const showActiveTheme = (theme, focus = false) => {
+                const themeSwitchers = [].slice.call(document.querySelectorAll('.theme-switcher'));
+
+                if (!themeSwitchers.length) return;
+
+                document.querySelectorAll('[data-bs-theme-value]').forEach(element => {
+                    element.classList.remove('active');
+                    element.setAttribute('aria-pressed', 'false');
+                });
+
+                for (const themeSwitcher of themeSwitchers) {
+
+                    const btnToActivate = themeSwitcher.querySelector('[data-bs-theme-value="' + theme + '"]');
+
+                    if (btnToActivate) {
+                        btnToActivate.classList.add('active');
+                        btnToActivate.setAttribute('aria-pressed', 'true');
+                    }
+                }
+            }
+
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+                const storedTheme = getStoredTheme();
+                if (storedTheme !== 'light' && storedTheme !== 'dark') {
+                    setTheme(getPreferredTheme());
+                }
+            });
+
+            window.addEventListener('DOMContentLoaded', () => {
+                showActiveTheme(getPreferredTheme());
+
+                document.querySelectorAll('[data-bs-theme-value]')
+                    .forEach(toggle => {
+                        toggle.addEventListener('click', (e) => {
+                            e.preventDefault();
+                            const theme = toggle.getAttribute('data-bs-theme-value');
+                            setStoredTheme(theme);
+                            setTheme(theme);
+                            showActiveTheme(theme);
+                        })
+                    })
+            });
+        })();
+    </script>
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png" media="(prefers-color-scheme: dark)">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="icon" type="image/png" sizes="1024x1024" href="assets/img/logobiotwin.png">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="manifest" href="manifest.json" crossorigin="use-credentials">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Mochiy+Pop+P+One&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Playfair+Display&amp;display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins&amp;display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link rel="stylesheet" href="assets/css/Features-Minimal-icons.css">
+    <link rel="stylesheet" href="assets/css/Projects-Grid-Horizontal-images.css">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-md fixed-top navbar-shrink py-3" id="mainNav">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/"><span style="font-size: 28px;">BioTwin</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-1"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
+            <div class="collapse navbar-collapse" id="navcol-1" style="font-size: 18px;">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item"><a class="nav-link active" href="/index.html" style="font-size: 18px;">Home</a></li>
+                    <li class="nav-item" style="font-size: 18px;"><a class="nav-link" href="index.html/#a3" style="font-size: 18px;"><strong>Tools</strong></a></li>
+                </ul>
+            </div>
+            <div class="theme-switcher dropstart"><a aria-expanded="false" data-bs-toggle="dropdown" href="#"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-lightbulb mb-1" style="font-size: 26px;">
+                        <path d="M2 6a6 6 0 1 1 10.174 4.31c-.203.196-.359.4-.453.619l-.762 1.769A.5.5 0 0 1 10.5 13a.5.5 0 0 1 0 1 .5.5 0 0 1 0 1l-.224.447a1 1 0 0 1-.894.553H6.618a1 1 0 0 1-.894-.553L5.5 15a.5.5 0 0 1 0-1 .5.5 0 0 1 0-1 .5.5 0 0 1-.46-.302l-.761-1.77a1.964 1.964 0 0 0-.453-.618A5.984 5.984 0 0 1 2 6m6-5a5 5 0 0 0-3.479 8.592c.263.254.514.564.676.941L5.83 12h4.342l.632-1.467c.162-.377.413-.687.676-.941A5 5 0 0 0 8 1"></path>
+                    </svg></a>
+                <div class="dropdown-menu"><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="light"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-sun-fill opacity-50 me-2">
+                            <path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8M8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0m0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13m8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5M3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8m10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0m-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707M4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z"></path>
+                        </svg>Light</a><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="dark"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-moon-stars-fill opacity-50 me-2">
+                            <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278"></path>
+                            <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z"></path>
+                        </svg>Dark</a><a class="dropdown-item d-flex align-items-center" href="#" data-bs-theme-value="auto"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-circle-half opacity-50 me-2">
+                            <path d="M8 15A7 7 0 1 0 8 1zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16"></path>
+                        </svg>Auto</a></div>
+            </div>
+        </div>
+    </nav>
+    <header class="pt-5" style="height: 781.38px;">
+        <div class="container pt-4 pt-xl-5">
+            <div class="row pt-5">
+                <div class="col-md-8 text-center text-md-start mx-auto">
+                    <div class="text-center" style="height: 479.385px;">
+                        <h5 class="display-4 fw-bold mb-5" style="margin-bottom: -25px;width: auto;height: auto;"><br>Integrated Cellular Health Analysis and Drug Simulation Platform<br><br></h5>
+                        <p style="font-size: 19px;"><strong>On Artificial Cell smiulation</strong></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section style="margin-top: 40px;">
+        <div class="col">
+            <div>
+                <p style="font-size: 26px;font-family: Poppins, sans-serif;margin-left: 9px;margin-right: 9px;padding-left: 8px;padding-right: 8px;">The Future of Cellular and Drug Interaction Analysis .Our cutting-edge tools leverage Graphs and simulation technologies to tackle critical challenges in healthcare research and therapeutic development. From analyzing cellular responses to external factors like nicotine to simulating drug interactions with precision, our platform empowers researchers, educators, and professionals with unparalleled insights. we’re transforming the way we understand cellular health, accelerate drug discovery.</p>
+            </div>
+        </div>
+    </section><div>
+    <script src="https://cdn.botpress.cloud/webchat/v2.2/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2024/12/21/05/20241221050924-D6USEUKF.js"></script>
+<div>
+    <section>
+        <div class="col">
+            <section>
+                <div class="container py-4 py-xl-5">
+                    <div class="row mb-5">
+                        <div class="col-md-8 col-xl-6 text-center mx-auto">
+                            <h2><strong>Features that make your team more&nbsp;productive</strong></h2>
+                        </div>
+                    </div>
+                    <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3">
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>Integrated Toolset</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>Computational Models</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>InteractiveVisualizations</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>Accessible Anywhere </strong>&nbsp;</h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>&nbsp;New Discoveries</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="d-flex p-3">
+                                <div class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block bs-icon sm"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-bell">
+                                        <path d="M8 16a2 2 0 0 0 2-2H6a2 2 0 0 0 2 2M8 1.918l-.797.161A4.002 4.002 0 0 0 4 6c0 .628-.134 2.197-.459 3.742-.16.767-.376 1.566-.663 2.258h10.244c-.287-.692-.502-1.49-.663-2.258C12.134 8.197 12 6.628 12 6a4.002 4.002 0 0 0-3.203-3.92L8 1.917zM14.22 12c.223.447.481.801.78 1H1c.299-.199.557-.553.78-1C2.68 10.2 3 6.88 3 6c0-2.42 1.72-4.44 4.005-4.901a1 1 0 1 1 1.99 0A5.002 5.002 0 0 1 13 6c0 .88.32 4.2 1.22 6"></path>
+                                    </svg></div>
+                                <div class="px-2">
+                                    <h5 class="mb-0 mt-1"><strong>EmbeddedAiAssistance</strong></h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </section>
+    <section>
+        <div class="container py-4 py-xl-5" id="a3">
+            <h1 style="text-align: center;">Tools We Provide</h1>
+            <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-lg-3">
+                <div class="col"><a href="macrophage.html">
+                        <div class="card border-light border-1 d-flex justify-content-center p-4" data-bss-hover-animate="pulse" style="height: 361.38px;">
+                            <div class="card-body">
+                                <div class="bs-icon-lg bs-icon-rounded bs-icon-secondary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon"><i class="icon ion-erlenmeyer-flask-bubbles" style="font-size: 50px;"></i></div>
+                                <div>
+                                    <h4 class="fw-bold">Macrophage Drug Simulator</h4>
+                                    <p class="text-muted">Empowers users to explore the effects of drug parameters on macrophage cells</p><button class="btn btn-sm px-0" type="button" style="margin-top: 13px;">Learn More&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-arrow-right">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+                                        </svg><br></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+                <div class="col"><a href="cellda.html">
+                        <div class="card border-light border-1 d-flex justify-content-center p-4" data-bss-hover-animate="pulse" style="height: 362.979px;">
+                            <div class="card-body">
+                                <div class="bs-icon-lg bs-icon-rounded bs-icon-secondary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon" style="margin-top: 19px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-microscope" style="font-size: 36px;">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M5 21h14"></path>
+                                        <path d="M6 18h2"></path>
+                                        <path d="M7 18v3"></path>
+                                        <path d="M9 11l3 3l6 -6l-3 -3z"></path>
+                                        <path d="M10.5 12.5l-1.5 1.5"></path>
+                                        <path d="M17 3l3 3"></path>
+                                        <path d="M12 21a6 6 0 0 0 3.715 -10.712"></path>
+                                    </svg></div>
+                                <div>
+                                    <h4 class="fw-bold">Impact Visualizer<br>Pre Trained&nbsp;</h4>
+                                    <p class="text-nowrap text-muted">Provides in-depth visualizations of <br>drug effect on specific cells. <br>Analyzedosage impacts, response<br>&nbsp;patterns</p><button class="btn btn-sm px-0" type="button" style="margin-top: -18px;">Learn More&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-arrow-right">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+                                        </svg><br></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+                <div class="col"><a href="nicotine.html">
+                        <div class="card border-light border-1 d-flex justify-content-center p-4" data-bss-hover-animate="pulse" style="height: 360.578px;">
+                            <div class="card-body" style="margin-top: 15px;">
+                                <div class="bs-icon-lg bs-icon-rounded bs-icon-secondary d-flex flex-shrink-0 justify-content-center align-items-center d-inline-block mb-4 bs-icon" style="margin-top: 27px;"><svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icon-tabler-currency-ethereum" style="font-size: 39px;">
+                                        <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
+                                        <path d="M6 12l6 -9l6 9l-6 9z"></path>
+                                        <path d="M6 12l6 -3l6 3l-6 2z"></path>
+                                    </svg></div>
+                                <div style="width: 252.333px;">
+                                    <h4 class="text-nowrap fw-bold">DataMorph&nbsp;in-depth <br>explore cellular data.</h4>
+                                    <p class="text-muted">Showcases the impact of diseases<br>or pollutants on cellular health.<br>Visualize&nbsp;cellular recovery .<br><br></p><button class="btn btn-sm px-0" type="button" style="margin-top: -35px;">Learn More&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" fill="currentColor" viewBox="0 0 16 16" class="bi bi-arrow-right">
+                                            <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8"></path>
+                                        </svg><br></button>
+                                </div>
+                            </div>
+                        </div>
+                    </a></div>
+            </div>
+        </div>
+    </section>
+    <section></section>
+    <section class="py-5"></section>
+    <footer>
+        <div class="container py-4 py-lg-5" style="height: 323.995px;">
+            <div class="row row-cols-2 row-cols-md-4">
+                <div class="col-12 col-md-3">
+                    <div class="fw-bold d-flex align-items-center mb-2"><span>BioTwin</span></div><a href="https://api.whatsapp.com/send/?phone=%2B919148043088&amp;text&amp;type=phone_number&amp;app_absent=0" target="_blank">
+                        <p class="text-muted" style="font-size: 11px;">by Team AlgoPy<br>Protype built for whackiest Hackathon event.</p>
+                    </a>
+                </div>
+            </div>
+            <hr>
+            <div class="text-muted d-flex justify-content-between align-items-center pt-3">
+                <p class="mb-0">Copyright © 2024&nbsp;<strong><span style="color: rgb(18, 22, 67);">BioTwin</span></strong></p>
+            </div>
+        </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/js/bs-init.js"></script>
+    <script src="assets/js/startup-modern.js"></script>
+</body>
+
+</html>
