@@ -110,7 +110,7 @@ This project is licensed under the MIT License. See the LICENSE file for more de
 Contact
 For any inquiries or feedback, please contact Team AlgoPy at:
 
-Email: algopy@example.com
+Email: sandeepjs1561@gmail.com
 GitHub: BioTwin Repository
 Thank you for exploring BioTwin! We look forward to your feedback and contributions.
 
